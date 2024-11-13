@@ -22,6 +22,10 @@ plt.title('CA Cities: Area and population')
 for area in [100, 300, 500]:
     plt.scatter([], [], c='k', alpha=0.3, s=area,
                 label=str(area) + ' km$^2$')
+coeffs = np.polyfit(lon, lat, 2)
+x_fit = np.linspace(min(lon), max(lon), 5)
+y_fit = np.polyval(coeffs, x_fit)
+plt.plot(x_fit, y_fit, label='2nd degree fit')
 plt.legend(scatterpoints=1, frameon=False, labelspacing=1, title='City Area')
 plt.savefig('cities.png')
 plt.close()
