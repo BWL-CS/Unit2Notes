@@ -27,3 +27,24 @@ print(iris.head())
 sns.pairplot(iris, hue='species', height=2.5)
 plt.savefig('sns-pairplot.png', bbox_inches='tight')
 plt.close()
+
+tips = sns.load_dataset('tips')
+print(tips.head())
+tips['tipsPercent'] = 100 * tips['tip'] / tips['total_bill']
+
+#facet grid: compare muliple dimentions
+grid = sns.FacetGrid(tips, row="sex", col="time", margin_titles=True)
+grid.map(plt.hist, "tipsPercent", bins=np.linspace(0, 40, 15))
+#smooth line of best fit/KDE 
+plt.savefig('sns-facetgrid.png', bbox_inches='tight')
+plt.close()
+
+#catigorical plot (spelling is not my strong suit)
+sns.catplot(x="day", y="total_bill", hue='sex', data=tips, kind='box')
+#sns.set_axis_labels('day', 'total bill')
+plt.savefig('sns-catplot.png', bbox_inches='tight')
+plt.close()
+
+sns.jointplot(x='total_bill', y="tip", data=tips, kind='reg')
+plt.savefig('sns-jointplot.png', bbox_inches='tight')
+plt.close()
